@@ -9,6 +9,26 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// TEMPORARY ROUTE TO BUILD CLOUD TABLE
+app.get('/api/setup', async (req, res) => {
+    try {
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS leads (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                source VARCHAR(100),
+                status ENUM('New', 'Contacted', 'Converted') DEFAULT 'New',
+                notes TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+        res.send("Cloud table created successfully!");
+    } catch (error) {
+        res.status(500).send("Error: " + error.message);
+    }
+});
+
 // 1. GET ROUTE: Fetch all leads from the database
 app.get('/api/leads', async (req, res) => {
     try {
