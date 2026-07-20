@@ -1,0 +1,151 @@
+/* Base Styling & Background */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f0f2f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.crm-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Bold Crimson Header */
+.header {
+  background-color: #dc143c; 
+  color: white;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+/* Dashboard Layout */
+.main-content {
+  padding: 2rem;
+  flex: 1;
+}
+
+.dashboard-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.form-card {
+  margin-bottom: 2rem;
+}
+
+/* Form Styling */
+.lead-form {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.lead-form input, .lead-form select {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.add-btn {
+  background-color: #dc143c;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.add-btn:hover {
+  background-color: #b01030;
+}
+
+/* Table Styling */
+.table-container {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+.leads-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.leads-table th, .leads-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.leads-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #555;
+}
+
+.empty-state {
+  text-align: center;
+  color: #888;
+  padding: 2rem !important;
+}
+
+/* Status Badges */
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.status-badge.new { background-color: #e3f2fd; color: #1976d2; }
+.status-badge.contacted { background-color: #fff3e0; color: #f57c00; }
+.status-badge.converted { background-color: #e8f5e9; color: #388e3c; }
+
+/* Delete Button */
+.delete-btn {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.delete-btn:hover {
+  background-color: #d9363e;
+}
+select.status-badge {
+  padding: 0.4rem;
+  border: 1px solid #ccc; 
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: bold;
+  background-color: white;
+}
