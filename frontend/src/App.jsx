@@ -9,10 +9,13 @@ function App() {
     source: 'Website Form'
   });
 
-  // 1. Fetch leads from the backend (READ)
+  // Use your live Render URL
+  const API_URL = 'https://crm-backend-wqf4.onrender.com';
+
+  // 1. Fetch leads from the cloud (READ)
   const fetchLeads = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/leads');
+      const response = await fetch(`${API_URL}/api/leads`);
       const data = await response.json();
       setLeads(data);
     } catch (error) {
@@ -24,21 +27,19 @@ function App() {
     fetchLeads();
   }, []);
 
-  // 2. Handle typing in the form
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // 3. Submit the new lead (CREATE)
+  // 2. Submit new lead to the cloud (CREATE)
   const handleSubmit = async (e) => {
     e.preventDefault(); 
     try {
-      await fetch('http://localhost:5000/api/leads', {
+      await fetch(`${API_URL}/api/leads`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-      // Clear the form back to default
       setFormData({ name: '', email: '', source: 'Website Form' });
       fetchLeads();
     } catch (error) {
@@ -46,11 +47,11 @@ function App() {
     }
   };
 
-  // 4. Delete a lead (DELETE)
+  // 3. Delete lead from the cloud (DELETE)
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this lead?")) {
       try {
-        await fetch(`http://localhost:5000/api/leads/${id}`, {
+        await fetch(`${API_URL}/api/leads/${id}`, {
           method: 'DELETE',
         });
         fetchLeads(); 
@@ -60,15 +61,15 @@ function App() {
     }
   };
 
-  // 5. Update lead status (UPDATE)
+  // 4. Update status in the cloud (UPDATE)
   const handleStatusChange = async (id, newStatus) => {
     try {
-      await fetch(`http://localhost:5000/api/leads/${id}/status`, {
+      await fetch(`${API_URL}/api/leads/${id}/status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })
       });
-      fetchLeads(); // Instantly refresh the table to show new colors
+      fetchLeads();
     } catch (error) {
       console.error("Failed to update status", error);
     }
@@ -81,18 +82,11 @@ function App() {
       </header>
       
       <main className="main-content">
-        {/* ADD LEAD FORM */}
         <div className="dashboard-card form-card">
           <h2>Add New Lead</h2>
           <form onSubmit={handleSubmit} className="lead-form">
-            <input 
-              type="text" name="name" placeholder="Full Name" required
-              value={formData.name} onChange={handleChange} 
-            />
-            <input 
-              type="email" name="email" placeholder="Email Address" required
-              value={formData.email} onChange={handleChange} 
-            />
+            <input type="text" name="name" placeholder="Full Name" required value={formData.name} onChange={handleChange} />
+            <input type="email" name="email" placeholder="Email Address" required value={formData.email} onChange={handleChange} />
             <select name="source" value={formData.source} onChange={handleChange}>
               <option value="Website Form">Website Form</option>
               <option value="Referral">Referral</option>
@@ -103,58 +97,38 @@ function App() {
           </form>
         </div>
 
-        {/* LEADS TABLE */}
         <div className="dashboard-card">
           <h2>Current Leads</h2>
-          <div className="table-container">
-            <table className="leads-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Source</th>
-                  <th>Status</th>
-                  <th>Actions</th>
+          <table className="leads-table">
+            <thead>
+              <tr>
+                <th>Name</th><th>Email</th><th>Source</th><th>Status</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {leads.map((lead) => (
+                <tr key={lead.id}>
+                  <td>{lead.name}</td>
+                  <td>{lead.email}</td>
+                  <td>{lead.source}</td>
+                  <td>
+                    <select 
+                      className={`status-badge ${lead.status ? lead.status.toLowerCase() : 'new'}`}
+                      value={lead.status}
+                      onChange={(e) => handleStatusChange(lead.id, e.target.value)}
+                    >
+                      <option value="New">New</option>
+                      <option value="Contacted">Contacted</option>
+                      <option value="Converted">Converted</option>
+                    </select>
+                  </td>
+                  <td>
+                    <button className="delete-btn" onClick={() => handleDelete(lead.id)}>Delete</button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {leads.length === 0 ? (
-                  <tr><td colSpan="5" className="empty-state">No leads found. Add one above!</td></tr>
-                ) : (
-                  leads.map((lead) => (
-                    <tr key={lead.id}>
-                      <td>{lead.name}</td>
-                      <td>{lead.email}</td>
-                      <td>{lead.source}</td>
-                      <td>
-                        {/* 
-                          The interactive dropdown for Status Update 
-                          Notice the values match the MySQL enum perfectly now!
-                        */}
-                        <select 
-                          className={`status-badge ${lead.status ? lead.status.toLowerCase() : 'new'}`}
-                          value={lead.status}
-                          onChange={(e) => handleStatusChange(lead.id, e.target.value)}
-                        >
-                          <option value="New">New</option>
-                          <option value="Contacted">Contacted</option>
-                          <option value="Converted">Converted</option>
-                        </select>
-                      </td>
-                      <td>
-                        <button 
-                          className="delete-btn" 
-                          onClick={() => handleDelete(lead.id)}
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
       </main>
     </div>
