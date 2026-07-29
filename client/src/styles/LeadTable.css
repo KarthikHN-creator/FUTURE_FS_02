@@ -1,0 +1,156 @@
+/* LeadTable.css */
+
+.lead-table {
+  margin-top: 30px;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.lead-table h2 {
+  text-align: center;
+  color: #2563eb;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: #2563eb;
+  color: white;
+}
+
+th {
+  padding: 15px;
+  text-align: center;
+  font-size: 16px;
+}
+
+td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Status Dropdown */
+
+select {
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  background: white;
+  outline: none;
+}
+
+select:focus {
+  border-color: #2563eb;
+}
+
+/* Buttons */
+
+.edit-btn {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: 0.3s;
+}
+
+.edit-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.delete-btn {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.delete-btn:hover {
+  background-color: #b91c1c;
+}
+
+/* No Data */
+
+.no-data {
+  text-align: center;
+  font-weight: bold;
+  color: gray;
+  padding: 20px;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .lead-table {
+    padding: 15px;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  th,
+  td {
+    padding: 10px;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  select {
+    width: 100%;
+  }
+}
+/* Status */
+
+.status-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.status-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  width: 100px;
+  text-align: center;
+}
+
+.status-badge.new {
+  background: #3b82f6;
+}
+
+.status-badge.contacted {
+  background: #f59e0b;
+}
+
+.status-badge.converted {
+  background: #16a34a;
+}

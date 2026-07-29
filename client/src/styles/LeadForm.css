@@ -1,0 +1,35 @@
+.lead-form {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.lead-form h2 {
+  margin-bottom: 20px;
+}
+
+.lead-form form {
+  display: grid;
+  gap: 15px;
+}
+
+.lead-form input,
+.lead-form select {
+  padding: 12px;
+  font-size: 16px;
+}
+
+.lead-form button {
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.lead-form button:hover {
+  background: #1d4ed8;
+}
